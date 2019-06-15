@@ -1,0 +1,24 @@
+body{
+    background-image: url("https://images4.alphacoders.com/236/thumb-1920-236188.jpg");
+    background-size: 100%;
+    color: black;
+}
+form{
+    border: 2px solid grey;
+    border-radius: 5%;
+    background-color: rgba(238, 238, 238, 0.5);
+    box-shadow: 10px 10px 10px #192934;
+}
+
+.cont1{
+    padding-top: 
+    10%;
+}
+
+.btnconnect{
+    padding-top: 5%
+}
+
+label{
+    font-family: "Courier New", Courier, monospace;
+}

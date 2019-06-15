@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Connect.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Connect.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @author Paul
+ * @description : Gestion du formulaire gestion de la saisie et des requetes serveur
+ * 
+ * @import  React from 'react'
+ * @import Home from '../home/Home'
+ * @import Abcrypt from '../Bcrypt/crypt'
+ */
+import React from 'react';
+import Home from '../home/Home';
+import Abcrypt from '../Bcrypt/Crypt';
+/**
+ * @class Connect affiche le form et envoie les request
+ */
+class Connect extends React.Component{
+    /**
+     * 
+     * @param {Props} props 
+     */
+    constructor(props){
+        super(props);
+        this.state = {isLoggedIn : false, login : '' , pwd : ''}
+        this.handleClick = this.handleClick.bind(this);
+        this.loginchange  = this.loginchange.bind(this)
+        this.pwdChange =  this.pwdChange.bind(this)
+    }
+    /**
+     * 
+     * @param {Object} event 
+     */
+    loginchange(event){
+        this.setState({login : event.target.value})
+    }
+    /**
+     * 
+     * @param {Object} event 
+     */
+    pwdChange(event){
+        this.setState({pwd : event.target.value})
+    }
+    /**
+     * @param {Object} e
+     */
+    handleClick=(e)=> { 
+        e.preventDefault();
+        const login = this.state.login;
+        const pwd = this.state.pwd
+        const crypt = new Abcrypt();
+        var testlog =crypt.getUser(login,pwd)
+        // crypt.create(login, pwd)
+        setTimeout(function(){
+            console.log('testlog : '+testlog)
+        }, 2000)
+        this.setState({isLoggedIn: testlog});
+    }
+    /**
+     * @description Methode de rendue
+     */
+    render(){
+        const isLoggedIn = this.state.isLoggedIn;
+        const login = this.state.login;
+        const pwd = this.state.pwd;
+        return(
+            &lt;Greeting isLoggedIn = {isLoggedIn} handleClick={this.handleClick } pwd = {pwd} login = {login} pwdChange = {this.pwdChange} loginchange = {this.loginchange}/>
+        )
+        
+    }
+
+}
+/**
+ * @param {Object} props Routage de la connexions 
+ */
+function Greeting(props) {
+    const pwdChange = props.pwdChange;
+    const login = props.login;
+    const pwd = props.pwd;
+    const isLoggedIn = props.isLoggedIn;
+    const handleClick = props.handleClick;
+    
+    if (isLoggedIn) {
+      return &lt;Logok />;
+    }else{
+        return &lt;Guestlog handleClick = {handleClick} pwd = {pwd} login = {login} loginchange = {props.loginchange} pwdChange = {pwdChange}/>;
+    }
+}
+/**
+ * 
+ * @param {Object} props decrit les proprietes utile a la &lt;/home> page
+ */
+function Logok(props){
+    console.log('Home page')
+    return &lt;Home />
+}
+
+function Guestlog(props ){
+    return &lt;div className = "container-fluid cont1">
+                &lt;div className = "row justify-content-center">
+                    &lt;form onSubmit = {props.handleClick}>
+                        &lt;div className="form-group">
+                            &lt;div className ="col-8">
+                                &lt;div>
+                                    &lt;label htmlFor ="login">Login&lt;/label>
+                                    &lt;input type="text" name="login" id="login" value= {props.login} onChange = {props.loginchange}>&lt;/input>
+                                &lt;/div>
+                                &lt;div>
+                                    &lt;label htmlFor ="pwd"> Password&lt;/label>
+                                    &lt;input type="text" name="pwd" id="pwd" value= {props.pwd} onChange = {props.pwdChange}>&lt;/input>
+                                &lt;/div>
+                                &lt;div className="btnconnect">
+                                    &lt;button  >Connect&lt;/button>
+                                &lt;/div>
+                            &lt;/div>
+                        &lt;/div>
+                    &lt;/form>
+                &lt;/div>
+            &lt;/div>
+}
+
+export default Connect; </code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Connect.html">Connect</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Greeting">Greeting</a></li><li><a href="global.html#Logok">Logok</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Fri Jun 14 2019 17:31:11 GMT+0200 (GMT+02:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
